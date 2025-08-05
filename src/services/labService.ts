@@ -37,6 +37,23 @@ export async function getSampleStatus(
  * @param sampleId  - as part of the filename
  * @param data      - object to serialize
  */
+
+//Get sample results
+export async function getSampleResults(
+    clientCode:string,
+    sampleId: string
+    ): Promise<any> {
+        const url = `${baseUrl}/Results/Extract/${clientCode}/${sampleId}`;
+        const res = await fetch(url, {
+            headers: { Authorization: `Bearer ${apiKey}` }
+    });
+    if (!res.ok) {
+        throw new Error (`Results API error: ${res.status} ${res.statusText}`
+        );
+    }
+    return res.json();
+}
+
 export function saveJsonToFile(
   clientCode: string,
   sampleId: string,
